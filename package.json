@@ -1,7 +1,7 @@
 {
   "name": "deepdown",
   "version": "1.0.0",
-  "description": "drill into your JavaScript objects with dynamically defined paths",
+  "description": "Safely drill into your JavaScript objects with dynamically defined paths",
   "main": "./lib/index.js",
   "scripts": {
     "clean": "rimraf lib",

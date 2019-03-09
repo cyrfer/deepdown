@@ -1,5 +1,5 @@
 # deepdown
-drill into your JavaScript objects with dynamically defined paths
+Safely drill into your JavaScript objects with dynamically defined paths
 
 [![Build Status](https://travis-ci.org/cyrfer/deepdown.svg?branch=master)](https://travis-ci.org/cyrfer/deepdown) [![dependencies Status](https://david-dm.org/cyrfer/deepdown/status.svg)](https://david-dm.org/cyrfer/deepdown) [![devDependencies Status](https://david-dm.org/cyrfer/deepdown/dev-status.svg)](https://david-dm.org/cyrfer/deepdown?type=dev) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
@@ -9,7 +9,7 @@ drill into your JavaScript objects with dynamically defined paths
 # Example
 
 ```
-const drillDown = require('../lib').default;
+const drillDown = require('deepdown').default;
 
 const appState = {
   nested: {
@@ -25,8 +25,17 @@ const appState = {
 
 const route = 'data';
 const choice = true;
-const path = ['nested', choice ? 'dynamic' : 'static', route];
+const path = ['nested', choice ? 'dynamic' : 'static'];
+path.push(route);
+
+// --- no crashes even if path is wrong
 const result = drillDown(appState, path);
+
+console.log('or be brave', drillDown(appState, `wrong.${!choice ? 'static' : null}.${route}`.split('.')));
+
+// --- what you've been doing
+// to avoid crashes involves tedious, statically defined checks
+const safeResult = appState.nested && appState.nested.static && appState.nested.static.other;
 ```
 
 # Commands
