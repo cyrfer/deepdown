@@ -1,20 +1,33 @@
-# NPM Module Boilerplate
+# deepdown
+drill into your JavaScript objects with dynamically defined paths
 
-[![Build Status](https://travis-ci.org/flexdinesh/npm-module-boilerplate.svg?branch=master)](https://travis-ci.org/flexdinesh/npm-module-boilerplate) [![dependencies Status](https://david-dm.org/flexdinesh/npm-module-boilerplate/status.svg)](https://david-dm.org/flexdinesh/npm-module-boilerplate) [![devDependencies Status](https://david-dm.org/flexdinesh/npm-module-boilerplate/dev-status.svg)](https://david-dm.org/flexdinesh/npm-module-boilerplate?type=dev) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/cyrfer/deepdown.svg?branch=master)](https://travis-ci.org/cyrfer/deepdown) [![dependencies Status](https://david-dm.org/cyrfer/deepdown/status.svg)](https://david-dm.org/cyrfer/deepdown) [![devDependencies Status](https://david-dm.org/cyrfer/deepdown/dev-status.svg)](https://david-dm.org/cyrfer/deepdown?type=dev) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-**Start developing your NPM module in seconds** ✨
+# Install
+`npm install --save deepdown`
 
-Readymade boilerplate setup with all the best practices to kick start your npm/node module development.
+# Example
 
-Happy hacking =)
+```
+const drillDown = require('../lib').default;
 
-# Features
+const appState = {
+  nested: {
+    dynamic: {
+      data: true,
+      error: false
+    },
+    static: {
+      other: 'stuff'
+    }
+  }
+};
 
-* **ES6/ESNext** - Write _ES6_ code and _Babel_ will transpile it to ES5 for backwards compatibility
-* **Test** - _Mocha_ with _Istanbul_ coverage
-* **Lint** - Preconfigured _ESlint_ with _Airbnb_ config
-* **CI** - _TravisCI_ configuration setup
-* **Minify** - Built code will be minified for performance
+const route = 'data';
+const choice = true;
+const path = ['nested', choice ? 'dynamic' : 'static', route];
+const result = drillDown(appState, path);
+```
 
 # Commands
 - `npm run clean` - Remove `lib/` directory
@@ -27,11 +40,3 @@ Happy hacking =)
 - `npm run cover` - Get coverage report for your code.
 - `npm run build` - Babel will transpile ES6 => ES5 and minify the code.
 - `npm run prepublish` - Hook for npm. Do all the checks before publishing your module.
-
-# Installation
-Just clone this repo and remove `.git` folder.
-
-
-# License
-
-MIT © Dinesh Pandiyan

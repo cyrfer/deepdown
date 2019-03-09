@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 const drillDown = require('../lib').default;
 
-const route = 'data';
 const appState = {
   nested: {
     dynamic: {
@@ -14,6 +13,8 @@ const appState = {
   }
 };
 
-const path = ['nested', 'dynamic', route];
-const defaultVal = drillDown(appState, path);
-console.log(`found nested value <${defaultVal}>, from path [${path}], in object: ${JSON.stringify(appState)}`);
+const route = 'data';
+const choice = true;
+const path = ['nested', choice ? 'dynamic' : 'static', route];
+const result = drillDown(appState, path);
+console.log(`found nested value <${result}>, from path [${path}], in object: ${JSON.stringify(appState)}`);
