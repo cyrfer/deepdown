@@ -38,6 +38,18 @@ console.log('or be brave', drillDown(appState, `wrong.${!choice ? 'static' : nul
 const safeResult = appState.nested && appState.nested.static && appState.nested.static.other;
 ```
 
+# Example 2
+
+```
+const data = [
+  {child: {grandchild: {value: 'bbb'}}}, // 'bbb' is greater than 'aaa'
+  {child: {grandchild: {value: 'aaa'}}},
+];
+
+// --- sort by a nested key --- //
+data.sort(sortByKey('child.grandchild.value'.split('.')));
+```
+
 # Commands
 - `npm run clean` - Remove `lib/` directory
 - `npm test` - Run tests with linting and coverage results.
