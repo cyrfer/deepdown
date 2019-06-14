@@ -1,5 +1,6 @@
 import { assert } from 'chai';
-import drillDown from '../src';
+import { drillDown, sortByKey } from '../src';
+
 
 describe('drillDown.', () => {
   it('should return parent when path is empty', () => {
@@ -21,3 +22,18 @@ describe('drillDown.', () => {
     assert(drillDown(parent, ['exists']) === expectedVal);
   });
 });
+
+describe('sortByKey', () => {
+  it('should sort', () => {
+    const data = [
+      {child: {grandchild: {value: 'bbb'}}}, // 'bbb' is greater than 'aaa'
+      {child: {grandchild: {value: 'aaa'}}},
+    ];
+
+    const firstValueBeforeSort = data[0].child.grandchild.value;
+    data.sort(sortByKey('child.grandchild.value'.split('.')));
+
+    const firstValueAfterSort = data[0].child.grandchild.value;
+    assert.notEqual(firstValueBeforeSort, firstValueAfterSort);
+  })
+})
