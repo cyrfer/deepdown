@@ -19,4 +19,6 @@ const sortByKey = key => (a, b) => {
   return 0;
 };
 
-export { drillDown, sortByKey };
+const equality = (key, val) => item => drillDown(item, key) === val;
+
+export { drillDown, sortByKey, equality };

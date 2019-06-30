@@ -6,7 +6,7 @@ Safely drill into your JavaScript objects with dynamically defined paths
 # Install
 `npm install --save deepdown`
 
-# Example
+# Example 1
 
 ```
 const drillDown = require('deepdown').default;
@@ -46,8 +46,34 @@ const data = [
   {child: {grandchild: {value: 'aaa'}}},
 ];
 
+const firstValueBeforeSort = data[0].child.grandchild.value;
+console.log(firstValueBeforeSort)
+> bbb
+
 // --- sort by a nested key --- //
 data.sort(sortByKey('child.grandchild.value'.split('.')));
+
+const firstValueAfterSort = data[0].child.grandchild.value;
+console.log(firstValueAfterSort)
+> aaa
+```
+
+# Example 3
+
+```
+const data = [
+  {child: {grandchild: {value: 'bbb'}}}, // 'bbb' is greater than 'aaa'
+  {child: {grandchild: {value: 'aaa'}}},
+];
+
+const data = [
+  {child: {grandchild: {value: 'bbb'}}},
+  {child: {grandchild: {value: 'aaa'}}},
+];
+const found = data.find(equality('child.grandchild.value'.split('.'), 'aaa'));
+
+console.log(found);
+> { child: { grandchild: { value: 'aaa' } } }
 ```
 
 # Commands

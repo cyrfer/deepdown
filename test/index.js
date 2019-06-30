@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { drillDown, sortByKey } from '../src';
+import { drillDown, sortByKey, equality } from '../src';
 
 
 describe('drillDown.', () => {
@@ -35,5 +35,16 @@ describe('sortByKey', () => {
 
     const firstValueAfterSort = data[0].child.grandchild.value;
     assert.notEqual(firstValueBeforeSort, firstValueAfterSort);
+  })
+});
+
+describe('equality', () => {
+  it('should match', () => {
+    const data = [
+      {child: {grandchild: {value: 'bbb'}}},
+      {child: {grandchild: {value: 'aaa'}}},
+    ];
+    const found = data.find(equality('child.grandchild.value'.split('.'), 'aaa'));
+    assert.deepEqual(found, data[1]);
   })
 })
