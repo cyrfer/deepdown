@@ -6,10 +6,10 @@ Safely drill into your JavaScript objects with dynamically defined paths
 # Install
 `npm install --save deepdown`
 
-# Example 1
+# Example drillDown
 
 ```
-const drillDown = require('deepdown').default;
+const drillDown = require('deepdown').drillDown;
 
 const appState = {
   nested: {
@@ -38,9 +38,10 @@ console.log('or be brave', drillDown(appState, `wrong.${!choice ? 'static' : nul
 const safeResult = appState.nested && appState.nested.static && appState.nested.static.other;
 ```
 
-# Example 2
+# Example sortByKey
 
 ```
+const sortByKey = require('deepdown').sortByKey;
 const data = [
   {child: {grandchild: {value: 'bbb'}}}, // 'bbb' is greater than 'aaa'
   {child: {grandchild: {value: 'aaa'}}},
@@ -58,9 +59,11 @@ console.log(firstValueAfterSort)
 > aaa
 ```
 
-# Example 3
+# Example equality
 
 ```
+const equality = require('deepdown').equality;
+
 const data = [
   {child: {grandchild: {value: 'bbb'}}}, // 'bbb' is greater than 'aaa'
   {child: {grandchild: {value: 'aaa'}}},
@@ -76,13 +79,68 @@ console.log(found);
 > { child: { grandchild: { value: 'aaa' } } }
 ```
 
+# Example filterByKey
+
+```
+const filterByKey = require('deepdown').filterByKey;
+
+const data = [
+  {child: {grandchild: {value: 'bbb'}}},
+  {child: {grandchild: {value: 'aaa'}}},
+];
+const key = 'child.grandchild.value'.split('.')
+const value = 'aaa' // only looking for matches with `aaa`
+const result = data.filter(filterByKey({key, value}))
+console.log(JSON.stringify(result))
+> [{"child":{"grandchild":{"value":"aaa"}}}]
+```
+
+# Example unwindByKey
+
+```
+const unwindByKey = require('deepdown').unwindByKey;
+
+const data = [
+    {child: {grandchild: {value: ['aaa', 'bbb', 'ccc']}}},
+    {child: {grandchild: {value: ['ddd', 'eee', 'fff']}}},
+];
+const keyPath = 'child.grandchild.value'.split('.')
+const result = unwindByKey(data, keyPath)
+console.log(JSON.stringify(result))
+> [
+  {"child":{"grandchild":{"value":"aaa"}}},
+  {"child":{"grandchild":{"value":"bbb"}}},
+  {"child":{"grandchild":{"value":"ccc"}}},
+  {"child":{"grandchild":{"value":"ddd"}}},
+  {"child":{"grandchild":{"value":"eee"}}},
+  {"child":{"grandchild":{"value":"fff"}}}
+]
+```
+
+# Example indexByKey
+
+```
+const indexByKey = require('deepdown').indexByKey;
+
+const data = [
+    {child: {grandchild: {value: 'bbb'}}},
+    {child: {grandchild: {value: 'aaa'}}},
+];
+const keyPath = 'child.grandchild.value'.split('.')
+const result = indexByKey(data, keyPath)
+console.log(JSON.stringify(result))
+> {
+  "bbb":[{"child":{"grandchild":{"value":"bbb"}}}],
+  "aaa":[{"child":{"grandchild":{"value":"aaa"}}}]
+  }
+```
+
 # Commands
 - `npm run clean` - Remove `lib/` directory
 - `npm test` - Run tests with linting and coverage results.
 - `npm test:only` - Run tests without linting or coverage.
 - `npm test:watch` - You can even re-run tests on file changes!
 - `npm test:prod` - Run tests with minified code.
-- `npm run test:examples` - Test written examples on pure JS for better understanding module usage.
 - `npm run lint` - Run ESlint with airbnb-config
 - `npm run cover` - Get coverage report for your code.
 - `npm run build` - Babel will transpile ES6 => ES5 and minify the code.
