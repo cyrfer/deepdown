@@ -52,7 +52,8 @@ console.log(firstValueBeforeSort)
 > bbb
 
 // --- sort by a nested key --- //
-data.sort(sortByKey('child.grandchild.value'.split('.')));
+const key = 'child.grandchild.value'.split('.')
+data.sort(sortByKey({key, order: true}));
 
 const firstValueAfterSort = data[0].child.grandchild.value;
 console.log(firstValueAfterSort)

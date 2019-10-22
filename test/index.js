@@ -31,7 +31,8 @@ describe('sortByKey', () => {
     ];
 
     const firstValueBeforeSort = data[0].child.grandchild.value;
-    data.sort(sortByKey('child.grandchild.value'.split('.')));
+    const key = 'child.grandchild.value'.split('.')
+    data.sort(sortByKey({key, order: true}));
 
     const firstValueAfterSort = data[0].child.grandchild.value;
     assert.notEqual(firstValueBeforeSort, firstValueAfterSort);

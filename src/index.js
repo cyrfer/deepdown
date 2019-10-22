@@ -10,12 +10,12 @@ export const drillDown = (parent, descendents) => descendents.reduce(drill, pare
 
 export default drillDown;
 
-export const sortByKey = key => (a, b) => {
+export const sortByKey = ({ key, order }) => (a, b) => {
   const da = drillDown(a, key);
   const db = drillDown(b, key);
 
-  if (da < db) return -1;
-  if (da > db) return 1;
+  if (da < db) return order ? -1 : 1;
+  if (da > db) return order ? 1 : -1;
   return 0;
 };
 
