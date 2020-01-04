@@ -1,6 +1,21 @@
 import { assert } from 'chai';
-import { drillDown, sortByKey, equality, indexByKey, unwindByKey, filterByKey/*, ifNotInAddToIndex*/ } from '../src';
+import { assignByKey, drillDown, sortByKey, equality, indexByKey, unwindByKey, filterByKey/*, ifNotInAddToIndex*/ } from '../src';
 
+describe('assignByKey', () => {
+  it('should assign the value to the nested path', () => {
+    const parent = {
+      child: {
+        grandchild: {
+          attribute: 'placeholder'
+        }
+      }
+    }
+    const path = 'child.grandchild.attribute'.split('.')
+    const value = 'value'
+    assignByKey(parent, path, value)
+    assert(drillDown(parent, path), value)
+  })
+})
 
 describe('drillDown', () => {
   it('should return parent when path is empty', () => {

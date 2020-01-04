@@ -1,6 +1,6 @@
 {
   "name": "deepdown",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Safely drill into your JavaScript objects with dynamically defined paths",
   "main": "./lib/index.js",
   "scripts": {

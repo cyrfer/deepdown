@@ -10,6 +10,11 @@ export const drillDown = (parent, descendents) => descendents.reduce(drill, pare
 
 export default drillDown;
 
+export const assignByKey = (parent, path, value) => {
+  const descendent = drillDown(parent, path.slice(0, -1));
+  descendent[path.slice(-1)[0]] = value;
+};
+
 export const sortByKey = ({ key, order }) => (a, b) => {
   const da = drillDown(a, key);
   const db = drillDown(b, key);

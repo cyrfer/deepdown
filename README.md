@@ -6,9 +6,28 @@ Safely drill into your JavaScript objects with dynamically defined paths
 # Install
 `npm install --save deepdown`
 
+# Example assignByKey
+
+```javascript
+const parent = {
+  child: {
+    grandchild: {
+      attribute: 'placeholder'
+    }
+  }
+}
+const path = 'child.grandchild.attribute'.split('.')
+const value = 'value'
+assignByKey(parent, path, value)
+console.log(drillDown(parent, path))
+/* prints
+value
+*/
+```
+
 # Example drillDown
 
-```
+```javascript
 const drillDown = require('deepdown').drillDown;
 
 const appState = {
@@ -40,7 +59,7 @@ const safeResult = appState.nested && appState.nested.static && appState.nested.
 
 # Example sortByKey
 
-```
+```javascript
 const sortByKey = require('deepdown').sortByKey;
 const data = [
   {child: {grandchild: {value: 'bbb'}}}, // 'bbb' is greater than 'aaa'
@@ -49,7 +68,9 @@ const data = [
 
 const firstValueBeforeSort = data[0].child.grandchild.value;
 console.log(firstValueBeforeSort)
-> bbb
+/* prints
+bbb
+*/
 
 // --- sort by a nested key --- //
 const key = 'child.grandchild.value'.split('.')
@@ -57,12 +78,14 @@ data.sort(sortByKey({key, order: true}));
 
 const firstValueAfterSort = data[0].child.grandchild.value;
 console.log(firstValueAfterSort)
-> aaa
+/* prints
+aaa
+*/
 ```
 
 # Example equality
 
-```
+```javascript
 const equality = require('deepdown').equality;
 
 const data = [
@@ -77,12 +100,14 @@ const data = [
 const found = data.find(equality('child.grandchild.value'.split('.'), 'aaa'));
 
 console.log(found);
-> { child: { grandchild: { value: 'aaa' } } }
+/* prints
+{ child: { grandchild: { value: 'aaa' } } }
+*/
 ```
 
 # Example filterByKey
 
-```
+```javascript
 const filterByKey = require('deepdown').filterByKey;
 
 const data = [
@@ -93,12 +118,14 @@ const key = 'child.grandchild.value'.split('.')
 const value = 'aaa' // only looking for matches with `aaa`
 const result = data.filter(filterByKey({key, value}))
 console.log(JSON.stringify(result))
-> [{"child":{"grandchild":{"value":"aaa"}}}]
+/* prints
+[{"child":{"grandchild":{"value":"aaa"}}}]
+*/
 ```
 
 # Example unwindByKey
 
-```
+```javascript
 const unwindByKey = require('deepdown').unwindByKey;
 
 const data = [
@@ -108,7 +135,8 @@ const data = [
 const keyPath = 'child.grandchild.value'.split('.')
 const result = unwindByKey(data, keyPath)
 console.log(JSON.stringify(result))
-> [
+/* prints
+[
   {"child":{"grandchild":{"value":"aaa"}}},
   {"child":{"grandchild":{"value":"bbb"}}},
   {"child":{"grandchild":{"value":"ccc"}}},
@@ -116,11 +144,12 @@ console.log(JSON.stringify(result))
   {"child":{"grandchild":{"value":"eee"}}},
   {"child":{"grandchild":{"value":"fff"}}}
 ]
+*/
 ```
 
 # Example indexByKey
 
-```
+```javascript
 const indexByKey = require('deepdown').indexByKey;
 
 const data = [
@@ -130,10 +159,12 @@ const data = [
 const keyPath = 'child.grandchild.value'.split('.')
 const result = indexByKey(data, keyPath)
 console.log(JSON.stringify(result))
-> {
+/* prints
+{
   "bbb":[{"child":{"grandchild":{"value":"bbb"}}}],
   "aaa":[{"child":{"grandchild":{"value":"aaa"}}}]
-  }
+}
+*/
 ```
 
 # Commands
