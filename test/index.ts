@@ -89,7 +89,8 @@ describe('filterByKey', () => {
     ];
     const key = 'child.grandchild.value'.split('.')
     const value = 'aaa'
-    const result = data.filter(filterByKey({key, value}))
+    // const result = 
+    data.filter(filterByKey({key, value}))
     // console.log(JSON.stringify(result))
     // assert.equal(result.length, 1)
   })
